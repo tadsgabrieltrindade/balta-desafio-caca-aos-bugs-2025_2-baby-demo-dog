@@ -8,7 +8,7 @@ namespace BugStore.Repositories
     public class CustomerRepository : ICustomerRepository
     {
         private readonly AppDbContext _context;
-        
+
         public CustomerRepository(AppDbContext context)
         {
             _context = context;
@@ -16,7 +16,8 @@ namespace BugStore.Repositories
 
         public async Task Create(Customer customer)
         {
-           await _context.Customers.AddAsync(customer);
+            await _context.Customers.AddAsync(customer);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Customer customer)
@@ -31,7 +32,7 @@ namespace BugStore.Repositories
 
         public Task<Customer?> GetById(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
                 return Task.FromResult<Customer?>(null);
             return _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -41,6 +42,7 @@ namespace BugStore.Repositories
             if (customer == null || customer.Id == Guid.Empty)
                 return Task.FromResult(false);
             _context.Customers.Update(customer);
+            _context.SaveChangesAsync();
             return Task.FromResult(true);
         }
     }

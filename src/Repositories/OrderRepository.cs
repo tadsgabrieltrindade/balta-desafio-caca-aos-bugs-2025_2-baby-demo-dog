@@ -17,6 +17,7 @@ namespace BugStore.Repositories
         public async Task Create(Order order)
         {
             await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Order order)
@@ -41,6 +42,7 @@ namespace BugStore.Repositories
             if (order == null || order.Id == Guid.Empty)
                 return Task.FromResult(false);
             _context.Orders.Update(order);
+            _context.SaveChangesAsync();
             return Task.FromResult(true);
         }
     }

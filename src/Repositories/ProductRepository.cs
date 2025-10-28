@@ -17,6 +17,7 @@ namespace BugStore.Repositories
         public async Task Create(Product product)
         {
             await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(Product product)
@@ -41,6 +42,7 @@ namespace BugStore.Repositories
             if (product == null || product.Id == Guid.Empty)
                 return Task.FromResult(false);
             _context.Products.Update(product);
+            _context.SaveChangesAsync();
             return Task.FromResult(true);
         }
     }
