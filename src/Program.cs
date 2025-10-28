@@ -2,6 +2,9 @@ using BugStore.Interfaces;
 using BugStore.Models;
 using BugStore.Repositories;
 using BugStore.settings;
+using CustomerEndpoints;
+using ProductEndpoints;
+using OrderEndpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,14 +18,7 @@ var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
 
 app.MapCustomerEndpoints();
-
-app.MapGet("/v1/products", () => "Hello World!");
-app.MapGet("/v1/products/{id}", () => "Hello World!");
-app.MapPost("/v1/products", () => "Hello World!");
-app.MapPut("/v1/products/{id}", () => "Hello World!");
-app.MapDelete("/v1/products/{id}", () => "Hello World!");
-
-app.MapGet("/v1/orders/{id}", () => "Hello World!");
-app.MapPost("/v1/orders", () => "Hello World!");
+app.MapProductEndpoints();
+app.MapOrderEndpoints();
 
 app.Run();
