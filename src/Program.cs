@@ -1,4 +1,7 @@
+using BugStore.settings;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSqlServerDbContext(builder.Configuration);
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
