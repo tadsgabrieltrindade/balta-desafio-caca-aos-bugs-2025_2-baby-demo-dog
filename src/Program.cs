@@ -1,7 +1,15 @@
+using BugStore.Interfaces;
+using BugStore.Models;
+using BugStore.Repositories;
 using BugStore.settings;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddSqlServerDbContext(builder.Configuration);
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
